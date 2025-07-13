@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Kalkulator Penjumlahan</title>
+    <style>
+      body {
+        padding: 40px 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 1.2rem;
+        background: linear-gradient(120deg, #e0eafc, #cfdef3 100%);
+        min-height: 100vh;
+      }
+      main {
+        max-width: 400px;
+        margin: 40px auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        padding: 32px 24px 24px 24px;
+      }
+      h2 {
+        text-align: center;
+        color: #007bff;
+        margin-bottom: 24px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      label {
+        font-weight: 500;
+        color: #333;
+      }
+      input[type="text"], input[type="number"] {
+        padding: 10px 12px;
+        border: 1px solid #b0c4de;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border 0.2s;
+      }
+      input[type="text"]:focus, input[type="number"]:focus {
+        border: 1.5px solid #007bff;
+        outline: none;
+      }
+      button[type="submit"] {
+        background: linear-gradient(90deg, #007bff 60%, #00c6ff 100%);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 12px 0;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 8px;
+      }
+      button[type="submit"]:hover {
+        background: linear-gradient(90deg, #0056b3 60%, #009ec3 100%);
+      }
+      #result {
+        margin-top: 24px;
+        padding: 14px 0;
+        text-align: center;
+        border-radius: 6px;
+        background: #f0f8ff;
+        color: #007bff;
+        font-size: 1.2rem;
+        font-weight: 500;
+        min-height: 1.5em;
+      }
+    </style>
+    <script type="module">
+      import { backend } from 'declarations/backend';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('calc').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const num1 = parseInt(document.getElementById('num1').value.toString());
+          const num2 = parseInt(document.getElementById('num2').value.toString());
+          const result = await backend.sum(num1, num2);
+          document.getElementById('result').innerText = "Hasil: " + result;
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <h2>Kalkulator Penjumlahan</h2>
+      <form id="calc">
+        <label for="num1">Angka Pertama:</label>
+        <input id="num1" alt="Number 1" type="number" required />
+        <label for="num2">Angka Kedua:</label>
+        <input id="num2" alt="Number 2" type="number" required />
+        <button type="submit">Hitung</button>
+      </form>
+      <section id="result"></section>
+    </main>
+  </body>
+</html>
